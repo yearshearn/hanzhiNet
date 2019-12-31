@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+a{ text-decoration:none!important;  }
+a:hover{  text-decoration:none!important;}
+ul,li,dl,dd,dt,p,input,span,form,h1{ margin:0px; padding:0px; list-style:none;}
+img{ border:none;}
+
+.i_zxme{ width:1160px; height:323px; margin:0px auto; margin-top:0px;}
+.i_zxmel{ width:788px; float:left; height:315px; float:left;}
+.i_zxmelt{ width:788px; height:30px; border-bottom:2px solid #694231; }
+.i_zxmelt{ width:788px; height:30px; border-bottom:2px solid #694231; font-size:18px; font-weight:bold; color:#d13600;font-family: "微软雅黑";}
+.i_zxmelt a{ color:#fff;}
+.i_zxmelt a:hover{color:#6a3d20;}
+.i_zxmelt span{ float:right; font-size:12px; line-height:32px;}
+.i_zxmelc{ width:1000px; height:420px;}
+.i_zxmelc1{ width:150px; height:420px; float:left;}
+.i_zxmelc1 ul{ width:150px; height:420px; padding-top:0px; text-decoration:none!important;}
+.i_zxmelc1 ul li{ width:150px; height:140px;background-color:#202020; margin-bottom:1px; font-size:12px; line-height:140px;text-align:center;text-decoration:none!important;color:#000!important;font-size:14px;}
+.i_zxmelc1 ul li.hover{ width:150px; height:140px;line-height:140px; background-color:#AF9342; text-align:center;background:url(../images/index_16.jpg) no-repeat right center; text-decoration:none!important; color:#000!important;}
+.i_zxmelc1 ul li.hover a{ color:#FFFFFF; height:140px;text-decoration:none !important; }
+.i_zxmelc2{ width:1000px; height:420px; float:left; margin-top:0px; padding:0 10px ; }
+.i_zxmelc3{ width:800px; height:420px; float:left;}
+.i_zxmelc31{ width:403px; height:140px; float:left; margin-bottom:5px;background:url(images/cen_1.gif) repeat-x bottom; line-height:22px; font-size:12px; color:#666666; padding-top:10px;}
+.i_zxmelc3d{ float:right;width: 403px;padding-left: 10px;}
+.i_zxmelc31 p{ font-size:14px; color:#333; text-align:center; font-weight:bold;}
+.i_zxmelc31 p a{ color:#333;}
+.i_zxmelc31 a{color:#797979;}
+.i_zxmelc31 a:hover{ color:#af092c;}
+.i_zxmelc32{ width:403px; height:100px; font-size:12px; padding-top:5px;}
+.i_zxmelc32 li{ width:185px; float:left; padding-right:10px;line-height:28px;overflow:hidden;text-overflow: ellipsis; white-space: nowrap;}
+.i_zxmelc32 li a:hover{ color:#af092c; text-decoration:none;}
+.i_zxmelc33{ width:473px; height:100px; padding-top:10px;}
+.i_zxmelc33 img{ border:1px solid #dcdcdc; padding:2px; margin-right:13px;}
+.i_zxmer{ width:242px; height:300px; float:right; padding-top:5px;}
+
+/* simplefoucs_lrtk.css */
+.xiamgmu{ width:935px; height:57px; margin:0px auto; margin-top:5px; background:url(../images/xmbj3.jpg) repeat-y;font-size:12px;padding-left:25px; padding-top:5px; border:1px solid #e2e2e2;}
+.xiamgmu li{ width:93px; float:left; line-height:25px; font-size:12px;}
+.xiamgmu a{ color:#333;}
+.xiamgmu a:hover{ color:#af092c; }

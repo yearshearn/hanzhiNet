@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+
+.agent-pc .npagePage.post #postContent .navlist .title { margin-bottom:5px;}
+.agent-pc .npagePage.post .navlist a.navlist_t { padding-top:8px; height:92px;}
+.agent-pc .npagePage .news .item_block::after { bottom:0;}
+#page_contact.pageEditor,#sitecontent .npagePage.post { padding-top:84px;}
+.agent-pc .ad01 .item_block.first .item_img img { height:auto;}
+.agent-pc #indexPage .project .item_block { padding-bottom:100px;}
+.agent-pc #indexPage .project.module .container_header { padding-bottom:70px;}
+.agent-pc #indexPage .project .container_category { top:-95px;}
+
+.agent-pc #indexPage .module.project .container_content .bx-wrapper .bx-controls-direction a.bx-next {right: -70px;}
+.agent-pc #indexPage .module.project .container_content .bx-wrapper .bx-controls-direction a.bx-prev { left:-70px;}
+
+.agent-pc .project .bx-wrapper .bx-controls-direction a.disabled { background-color:rgba(0,0,0,.1);}
+
+.agent-pc #indexPage .project .bx-wrapper .bx-controls-direction a.bx-next:hover i.fa-angle-right::after{ color:#B59942;}
+.agent-pc #indexPage .project .bx-wrapper .bx-controls-direction a.bx-prev:hover i::after { color:#B59942;}
+.agent-pc #indexPage .project.module .container_content .bx-wrapper .bx-pager.bx-default-pager{ display:none;}
+.agent-pc .mcustomize .description { width:580px; padding-left:45px;}

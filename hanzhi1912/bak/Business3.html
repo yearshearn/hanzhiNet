@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="agent-pc theme-bwhite">
+<head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta content="telephone=no" name="format-detection" />
+<link rel="stylesheet" type="text/css" href="css/lib.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+<style type="text/css">
+/* 标签重定义 */
+#title{width:600px;margin:20px auto;text-align:left; font-size:12px;}
+/* 定义关键帧 */
+@-webkit-keyframes shade{
+from{opacity:1;}
+15%{opacity:0.4;}
+to{opacity:1;}
+}
+@-moz-keyframes shade{
+from{opacity:1;}
+15%{opacity:0.4;}
+to{opacity:1;}
+}
+@-ms-keyframes shade{
+from{opacity:1;}
+15%{opacity:0.4;}
+to{opacity:1;}
+}
+@-o-keyframes shade{
+from{opacity:1;}
+15%{opacity:0.4;}
+to{opacity:1;}
+}
+@keyframes shade{
+from{opacity:1;}
+15%{opacity:0.4;}
+to{opacity:1;}
+}
+/* wrap */
+#wrap{width:auto;min-height:1300px;margin:0 auto;position:relative; left: -270px;}
+#wrap .box{width:280px;height:auto;padding:2px;border:none;float:left;}
+#wrap .box .info{width:280px;height:auto;}
+#wrap .box .info .pic{width:260px;height:auto;margin:0 auto;padding-top:10px;}
+#wrap .box .info .pic:hover{
+-webkit-animation:shade 3s ease-in-out 1;
+-moz-animation:shade 3s ease-in-out 1;
+-ms-animation:shade 3s ease-in-out 1;
+-o-animation:shade 3s ease-in-out 1;
+animation:shade 3s ease-in-out 1;
+}
+#wrap .box .info .pic img{width:260px;border-radius:3px;}
+#wrap .box .info .title{width:260px;height:40px;margin:0 auto;line-height:40px;text-align:left;color:#666;font-size:14px;font-weight:bold;overflow:hidden;}
+</style>
+<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+//运行瀑布流主函数
+PBL('wrap','box');
+
+//模拟数据
+/*	var data = [{'src':'1.jpg','title':'万科地产'},{'src':'2.jpg','title':'万科地产'},{'src':'3.jpg','title':'万科地产'},{'src':'4.jpg','title':'万科地产'},{'src':'5.jpg','title':'万科地产'},{'src':'6.jpg','title':'万科地产'},{'src':'7.jpg','title':'万科地产'},{'src':'8.jpg','title':'万科地产'},{'src':'9.jpg','title':'万科地产'},{'src':'10.jpg','title':'万科地产'}];
+*/	
+
+//设置滚动加载
+window.onscroll = function(){
+//校验数据请求
+if(getCheck()){
+var wrap = document.getElementById('wrap');
+// for(i in data){
+// //创建box
+// var box = document.createElement('div');
+// box.className = 'box';
+// wrap.appendChild(box);
+// //创建info
+// var info = document.createElement('div');
+// info.className = 'info';
+// box.appendChild(info);
+// //创建pic
+// var pic = document.createElement('div');
+// pic.className = 'pic';
+// info.appendChild(pic);
+// //创建img
+// var img = document.createElement('img');
+// img.src = 'images/'+data[i].src;
+// img.style.height = 'auto';
+// pic.appendChild(img);
+// //创建title
+// var title = document.createElement('div');
+// title.className = 'title';
+// info.appendChild(title);
+// //创建a标记
+// var a = document.createElement('a');
+// a.innerHTML = data[i].title;
+// title.appendChild(a);
+// }
+PBL('wrap','box');
+}
+}
+}
+/**
+* 瀑布流主函数
+* @param  wrap	[Str] 外层元素的ID
+* @param  box 	[Str] 每一个box的类名
+*/
+function PBL(wrap,box){
+//	1.获得外层以及每一个box
+var wrap = document.getElementById(wrap);
+var boxs  = getClass(wrap,box);
+//	2.获得屏幕可显示的列数
+var boxW = boxs[0].offsetWidth;
+var colsNum = Math.floor(document.documentElement.clientWidth/boxW);
+wrap.style.width = boxW*colsNum+'px';//为外层赋值宽度
+//	3.循环出所有的box并按照瀑布流排列
+var everyH = [];//定义一个数组存储每一列的高度
+for (var i = 0; i < boxs.length; i++) {
+if(i<colsNum){
+everyH[i] = boxs[i].offsetHeight;
+}else{
+var minH = Math.min.apply(null,everyH);//获得最小的列的高度
+var minIndex = getIndex(minH,everyH); //获得最小列的索引
+getStyle(boxs[i],minH,boxs[minIndex].offsetLeft,i);
+everyH[minIndex] += boxs[i].offsetHeight;//更新最小列的高度
+}
+}
+}
+/**
+* 获取类元素
+* @param  warp		[Obj] 外层
+* @param  className	[Str] 类名
+*/
+function getClass(wrap,className){
+var obj = wrap.getElementsByTagName('*');
+var arr = [];
+for(var i=0;i<obj.length;i++){
+if(obj[i].className == className){
+arr.push(obj[i]);
+}
+}
+return arr;
+}
+/**
+* 获取最小列的索引
+* @param  minH	 [Num] 最小高度
+* @param  everyH [Arr] 所有列高度的数组
+*/
+function getIndex(minH,everyH){
+for(index in everyH){
+if (everyH[index] == minH ) return index;
+}
+}
+/**
+* 数据请求检验
+*/
+function getCheck(){
+var documentH = document.documentElement.clientHeight;
+var scrollH = document.documentElement.scrollTop || document.body.scrollTop;
+return documentH+scrollH>=getLastH() ?true:false;
+}
+/**
+* 获得最后一个box所在列的高度
+*/
+function getLastH(){
+var wrap = document.getElementById('wrap');
+var boxs = getClass(wrap,'box');
+return boxs[boxs.length-1].offsetTop+boxs[boxs.length-1].offsetHeight;
+}
+/**
+* 设置加载样式
+* @param  box 	[obj] 设置的Box
+* @param  top 	[Num] box的top值
+* @param  left 	[Num] box的left值
+* @param  index [Num] box的第几个
+*/
+var getStartNum = 0;//设置请求加载的条数的位置
+function getStyle(box,top,left,index){
+if (getStartNum>=index) return;
+$(box).css({
+'position':'absolute',
+'top':top,
+"left":left,
+"opacity":"0"
+});
+$(box).stop().animate({
+"opacity":"1"
+},999);
+getStartNum = index;//更新请求数据的条数位置
+}
+</script>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<!-- <script type="text/javascript" src="js/home-jquey.js" data-main="indexMain"></script> -->
+<title>上海汉智工程建设集团有限公司</title></head>
+<body class="gh0">
+<div id="header" style=" background:url(images/bg.png) repeat-x ;">
+<div class="wrapper">
+<div class="content">
+<div id="headTop">
+<a href="index.html" id="logo">
+<img src="images/logoo.png" height="44" /></a>
+<div id="openBtn" class="fl btn"><div class="lcbody">
+<div class="lcitem top"><div class="rect top"></div></div>
+<div class="lcitem bottom"><div class="rect bottom"></div>
+</div></div>
+</div></div>
+<div id="navWrapper"><div class="content">
+<p class="search_but" style="display:none">
+<i class="fa fa-search" aria-hidden="true"></i></p>
+<ul class="nav movedx" data-movedx-mid="1">
+<li class="navitem"><a href="index.html" target="_self"><span data-title="首页">首页</span></a></li>
+<li class="navitem"><a href="about.html" target=""><span data-title="走进汉智">走进汉智</span><i class="fa fa-angle-down"></i></a>
+<ul class="subnav">
+<li><a href="about.html" target="_self">集团简介</a></li>
+<li><a href="member.html" target="_self">集团成员</a></li>
+<li><a href="honor.html" target="_self">荣誉资质</a></li>
+</ul></li>
+<li class="navitem"><a href="Business.html"  class="active"><span data-title="解决方案">解决方案</span><i class="fa fa-angle-down"></i></a>
+<ul class="subnav">
+<li><a href="Business.html" target="_self">医疗养老事业部</a></li>
+<li><a href="Business2.html" target="_self">医药工业事业部</a></li>
+<li><a href="Business3.html" target="_self">房建市政事业部</a></li>
+<li><a href="Business4.html" target="_self">BIM建筑信息技术中心</a></li>
+</ul></li>
+<li class="navitem"><a href="service.html" target=""><span data-title="服务内容">服务内容</span> </a>
+</li>
+<li class="navitem"><a href="contact.html" target=""  ><span data-title="了解更多">了解更多</span><i class="fa fa-angle-down"></i></a>
+<ul class="subnav">
+<li><a href="job.html" target="_self">人才招聘</a></li>
+<li><a href="contact.html" target="_self">业务联系</a></li>
+<li><a href="partner.html" target="_self">合作客户</a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+</div></div></div>
+<div id="sitecontent"> 
+<div class="npagePage pageEditor" id="page_about">
+<div id="banner"><div style="background-image:url(images/server.jpg);"></div></div>
+<div style="border-bottom:1px solid #2B2B2B; height:60px; background-color:#161616; line-height:60px; text-align:right; padding-right:100px;">
+您的位置：<a href="index.html">首页</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a>解决方案</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="Business.html">房建市政事业部</a>
+</div>
+<div class="content">
+<div class="mpageEditor module"><div class="module_container">
+<div class="container_header wow" ><p class="biaoti">医疗养老事业部</p>
+</div>
+<div class="container_content">
+<div class="content_wrapper">
+<div class="postbody">
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td align="center">
+房屋建筑项目及市政公用项目的可行性研究、方案设计、施工图设计、施工监理、造价咨询、土建施工、装饰装修、机电专项承包等，服务的项目多达2000多项。<br />
+涉及的物业类型有酒店、办公楼、高档别墅、商品住宅、体育场馆、工业项目、市政公建、道路、桥梁等。
+</td>
+</tr>
+<tr>
+<td>
+<div class="container_header wow" ><p class="biaoti">典型客户</p><br /><br />
+<img src="images/jt.png" width="14" height="7" /></p>
+</div>
+</td>
+</tr>
+</table>
+<div id="wrap">
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj14.jpg"></div>
+<div class="title">上海市第六人民医院</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj2.jpg"></div>
+<div class="title">上海复星医药集团</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj3.jpg"></div>
+<div class="title">上海复旦张江生物医药</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj4.jpg"></div>
+<div class="title">复旦大学药学院</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj5.jpg"></div>
+<div class="title">上海科学技术职业学院</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj7.jpg"></div>
+<div class="title">江苏扬子江药业</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj8.jpg"></div>
+<div class="title">上海申通地铁集团</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj9.jpg"></div>
+<div class="title">复旦大学药学院</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj11.jpg"></div>
+<div class="title">上海科学技术职业学院</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj12.jpg"></div>
+<div class="title">江苏扬子江药业</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj13.jpg"></div>
+<div class="title">上海申通地铁集团</div>
+</div>
+</div>
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj15.jpg"></div>
+<div class="title">万科地产</div>
+</div>
+</div>	
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj16.jpg"></div>
+<div class="title">万科地产</div>
+</div>
+</div>	
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj17.jpg"></div>
+<div class="title">万科地产</div>
+</div>
+</div>	
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj18.jpg"></div>
+<div class="title">万科地产</div>
+</div>
+</div>	
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj19.jpg"></div>
+<div class="title">万科地产</div>
+</div>
+</div>	
+<div class="box">
+<div class="info">
+<div class="pic"><img src="images/fj20.jpg"></div>
+<div class="title">万科地产</div>
+</div>
+</div>	
+</div>
+</div></div></div></div></div></div></div>
+
+<div id="footer"><p><span class="zi7">沪ICP备05100895号 版权所有 | 上海汉智工程建设集团有限公司 </span></p>
+<div id="shares"><a href="#" id="gotop"><i class="fa fa-angle-up"></i></a></div></div>
+</body></html>

@@ -1,0 +1,11 @@
+@charset "utf-8";
+  ul,li{ list-style:none;}
+a{ color:#666; text-decoration:none;}
+a:hover{ text-decoration:none; color:#000;}
+img{border:0 none;}
+
+#waterfall{ text-align:center; width:1170px; margin:0 auto;}
+#waterfall img{ width:283px;}
+#waterfall .cell{ padding:5px 0px 5px 0px; width:285px; }
+#waterfall .cell:hover{-moz-opacity:0.68 !important; filter:alpha(opacity=68); opacity: 0.68;  _-moz-opacity:0.68;}
+
